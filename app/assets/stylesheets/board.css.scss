@@ -1,0 +1,18 @@
+section#board {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  position: absolute;
+  top: 121px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .table {
+    display: table;
+    padding: 0 8px 8px;
+    height: 100%;
+    width: 100%;
+  }
+}

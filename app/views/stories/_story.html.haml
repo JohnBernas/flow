@@ -1,0 +1,5 @@
+%div.story{ data: { id: story.id } }
+  .story-fields
+    .key= link_to story.pid, story.url, target: '_blank'
+    .summary
+      %span.inner{ title: story.name }= story.name

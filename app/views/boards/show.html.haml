@@ -1,0 +1,4 @@
+%section[board]{ data: { id: board.id} }
+  .table
+    %ul.headers= render partial: 'columns/header', collection: board.columns.ordered
+    = render board.swimlanes

@@ -1,0 +1,3 @@
+.swimlane{ data: { id: swimlane.id } }
+  = render partial: 'swimlanes/header', object: swimlane
+  %ul.columns= render partial: 'columns/column', collection: swimlane.columns.ordered, locals: { swimlane: swimlane }

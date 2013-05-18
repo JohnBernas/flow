@@ -1,0 +1,28 @@
+---
+language: ruby
+
+notifications:
+  email: false
+
+rvm:
+  - 1.9.2
+  - 1.9.3
+  - 2.0.0
+  - rbx-19mode
+
+env:
+  global:
+    - DISPLAY=":99.0"
+
+matrix:
+  allow_failures:
+    - rvm: rbx-19mode
+
+script:
+  - "bundle exec rake spec"
+
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database flow_test;' -U postgres
+  - bundle exec rake db:migrate
+  - "sh -e /etc/init.d/xvfb start"
