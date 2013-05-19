@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130301105501) do
+ActiveRecord::Schema.define(version: 20130519053851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,42 +19,48 @@ ActiveRecord::Schema.define(version: 20130301105501) do
 
   create_table "boards", force: true do |t|
     t.string   "title"
-    t.hstore   "data",       default: "", null: false
+    t.hstore   "data",       default: {}, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "boards", ["data"], name: "boards_data", using: :gin
 
   create_table "columns", force: true do |t|
     t.string   "title"
     t.integer  "display",    default: 0
     t.integer  "board_id"
-    t.hstore   "data",       default: "", null: false
+    t.hstore   "data",       default: {}, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "columns", ["board_id"], name: "index_columns_on_board_id", using: :btree
+  add_index "columns", ["data"], name: "columns_data", using: :gin
 
   create_table "stories", force: true do |t|
     t.integer  "priority",   default: 0
     t.integer  "column_id"
-    t.hstore   "data",       default: "", null: false
-    t.hstore   "tracker",    default: "", null: false
+    t.hstore   "data",       default: {}, null: false
+    t.hstore   "tracker",    default: {}, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "stories", ["column_id"], name: "index_stories_on_column_id", using: :btree
+  add_index "stories", ["data"], name: "stories_data", using: :gin
+  add_index "stories", ["tracker"], name: "stories_tracker", using: :gin
 
   create_table "swimlanes", force: true do |t|
     t.string   "title"
     t.integer  "horizontal", default: 0
     t.integer  "board_id"
-    t.hstore   "data",       default: "", null: false
+    t.hstore   "data",       default: {}, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "swimlanes", ["board_id"], name: "index_swimlanes_on_board_id", using: :btree
+  add_index "swimlanes", ["data"], name: "swimlanes_data", using: :gin
 
 end
