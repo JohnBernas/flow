@@ -41,12 +41,22 @@ The easiest way to run the required processes is by using the `Procfile`.
     gem install foreman
     foreman start
 
-## Authors
+## Contributing
+
+Please see [CONTRIBUTING.md][] for details.
+
+## Credits
+
+Flow was originally written by Jean Mertz.
+
+[![kabisa](http://kabisa.nl/assets/logo-7456ff79fa2f4a5d72514a807733182d.png)](http://www.kabisa.nl)
 
 Flow is a Kabisa initiative.
 
- * Jean Mertz <jean@mertz.fm>
-
 ## License
 
-Flow is licensed under the MIT license. See `LICENSE.txt` for details.
+Flow is Copyright © 2013 Jean Mertz and Kabisa ICT. It is free software, and may
+be redistributed under the terms specified in the [LICENSE.txt][] file.
+
+[CONTRIBUTING.md]: CONTRIBUTING.md
+[LICENSE.txt]: LICENSE.txt
