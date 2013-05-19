@@ -6,7 +6,7 @@ module BoardsController
   class Synchronize < ApplicationController
     def call
       SynchronizationWorker.perform_async(params[:id], remote: true)
-      head 200
+      redirect_to board_url(params[:id])
     end
   end
 end
