@@ -108,7 +108,7 @@ private
       story.board.project_id).first
   end
 
-  def remote
-    @remote ||= PivotalTracker::Project.find(board.project_id)
+  def remote_project
+    @remote_project ||= PivotalTracker::Project.find(board.project_id)
   end
 end
