@@ -4,7 +4,6 @@
 #= require underscore
 #= require turbolinks
 #= require websocket_rails/main
-#= require store
 #= require boards
 #= require swimlanes
 #= require columns
