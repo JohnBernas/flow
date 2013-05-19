@@ -9,5 +9,6 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-raise 'No Environment variable SECRET_KEY_BASE found' unless ENV['SECRET_KEY_BASE']
-Flow::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
+secret = Rails.env.test? ? '' : ENV['SECRET_KEY_BASE']
+raise 'No Environment variable SECRET_KEY_BASE found' unless secret
+Flow::Application.config.secret_key_base = secret
