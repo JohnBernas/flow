@@ -20,12 +20,12 @@ board = Board.create(title: 'My Pivotal Project', data: { project_id: 123456 })
 #
 # [horizontal] the horizontal position of the swimlane, 1 starting at the top
 #
-# [data][limit] soft-limit of stories in a lane. The column will be styled
+# [data][limit] soft-limit of stories in a lane. The swimlane will be styled
 # appropriately if this number is superseded
 #
 # [data][labels] story labels that should be linked to this swimlane
 #
-# [data][default] if set to true, stories without any column labels will be
+# [data][default] if set to true, stories without any swimlane labels will be
 # assigned to this swimlane
 #
 board.swimlanes.create(title: 'Criticals', horizontal: 1, data: { limit: 1, labels: 'critical' })
@@ -41,7 +41,8 @@ board.swimlanes.create(title: 'Everything else', horizontal: 2, data: { default:
 # [display] position of column, 1 being the left most column
 #
 # [data][default] if set to true, stories not matching any other columns will
-# end up here
+# end up here. Also, if you remove a column from your workflow, existing stories
+# in that column will be assigned to this one
 #
 # [data][state] story state linked to this column. Can be one of accepted,
 # rejected, delivered, finished, started, unstarted, unscheduled
@@ -55,5 +56,5 @@ board.swimlanes.create(title: 'Everything else', horizontal: 2, data: { default:
 board.columns.create(title: 'To Do', display: 1, data: { default: true, state: 'unstarted' })
 board.columns.create(title: 'On Hold', display: 2, data: { state: 'started', label: 's.hold' })
 board.columns.create(title: 'In Progress', display: 3, data: { limit: 3, state: 'started' })
-board.columns.create(title: 'Deployment', display: 4, data: { limit: 6, state: 'delivered', label: 's.deploy' })
+board.columns.create(title: 'Deployment', display: 4, data: { limit: 6, state: 'delivered' })
 board.columns.create(title: 'Done', display: 5, data: { state: 'accepted' })
