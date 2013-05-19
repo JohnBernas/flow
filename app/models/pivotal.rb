@@ -45,9 +45,9 @@ class Pivotal
     remote.update(story.tracker)
   end
 
-  def story_changed?(activity)
+  def story_changed?(occurred_at)
     return true unless story # If it's a new story, it has changed...
-    remote_is_newer?(activity) && attributes_changed?(:current_state, :labels)
+    remote_is_newer?(occurred_at) && attributes_changed?(:current_state, :labels)
   end
 
 private
@@ -68,8 +68,8 @@ private
     do_check && !Label.new(story).eq?(labels)
   end
 
-  def remote_is_newer?(activity)
-    activity[:occurred_at].to_datetime > story.updated_at.to_datetime
+  def remote_is_newer?(occurred_at)
+    occurred_at.to_datetime > story.updated_at.to_datetime
   end
 
   def column_based_on_story_and_labels
