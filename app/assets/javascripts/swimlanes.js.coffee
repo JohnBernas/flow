@@ -26,10 +26,17 @@ class window.Swimlane
   close: -> @_el.toggleClass('closed')
 
   redraw: ->
+    @update_story_counter()
+
     if ! @stories().length
       @_el.addClass('empty')
     else
       @_el.removeClass('empty')
+
+  update_story_counter: ->
+      counter = @_el.find('.swimlane-header .info')
+      stories = @_el.find('.story').size()
+      counter.text("#{stories} issue#{'s' if stories > 1}")
 
   # Private methods
   _set_attr_readers: (type) ->
