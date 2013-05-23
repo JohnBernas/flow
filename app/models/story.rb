@@ -38,7 +38,7 @@ class Story < ActiveRecord::Base
 
   def swimlane
     if sllabels = Label.new(self).swimlaneizers and sllabels.any?
-      board.swimlanes.where("string_to_array(data -> 'labels', ',') @> ?",
+      board.swimlanes.where("string_to_array(data -> 'labels', ',') && ?",
         "{#{sllabels.join(',')}}").first
     else
       board.swimlanes.inbox || board.swimlanes.first
