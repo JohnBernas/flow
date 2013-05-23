@@ -35,8 +35,12 @@ class window.Swimlane
 
   update_story_counter: ->
       counter = @_el.find('.swimlane-header .info')
-      stories = @_el.find('.story').size()
-      counter.text("#{stories} issue#{'s' if stories > 1}")
+      total = @_el.find('.story').size()
+
+      if total == 1
+        counter.text("#{total} issue")
+      else
+        counter.text("#{total} issues")
 
   # Private methods
   _set_attr_readers: (type) ->
