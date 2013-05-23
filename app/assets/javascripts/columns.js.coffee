@@ -23,6 +23,16 @@ class window.Column
     for _, c of window.columns
       window.full_columns.push c._el if c.is_full()
 
+  @update_quantities: ->
+    $('ul.headers .column').each ->
+      index = $(@).index()
+      stories = 0
+      $(Swimlane.SELECTOR).each ->
+        column = $(@).find('.column')[index]
+        stories += $(column).find('.story').size()
+
+      $(@).find('.col-qty .qty .total').text(stories)
+
   # Instance methods
   stories: ->
     stories = {}
