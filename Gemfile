@@ -8,7 +8,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'pivotal-tracker'
-gem 'websocket-rails'
+gem 'websocket-rails', group: %w[development production staging]
 gem 'focused_controller', github: 'JeanMertz/focused_controller'
 gem 'ranked-model', github: 'JeanMertz/ranked-model'
 gem 'actionpack-xml_parser', github: 'rails/actionpack-xml_parser', ref: '13b87'
