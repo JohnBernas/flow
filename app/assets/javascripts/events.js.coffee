@@ -14,6 +14,7 @@ class window.ColumnEvent extends EventConstructor
   published_observers: (column) ->
     Column.redraw()
     Column.update_full_list()
+    Column.update_quantities()
 
 class window.SwimlaneEvent extends EventConstructor
   published_observers: (swimlane) ->
