@@ -33,6 +33,28 @@ class window.Column
 
       $(@).find('.col-qty .qty .total').text(stories)
 
+      if $(@).find('.col-qty .busted')
+        max = parseInt($(@).find('.col-qty .busted').text(), 10)
+        if stories > max
+          $(@).removeClass('busted-limit')
+          $(@).addClass('busted-max')
+        else if stories is max
+          $(@).removeClass('busted-max')
+          $(@).addClass('busted-limit')
+        else
+          $(@).removeClass('busted-max busted-limit')
+
+        $(Swimlane.SELECTOR).each ->
+          column = $(@).find('.column')[index]
+          if stories > max
+            $(column).removeClass('busted-limit')
+            $(column).addClass('busted-max')
+          else if stories is max
+            $(column).removeClass('busted-max')
+            $(column).addClass('busted-limit')
+          else
+            $(column).removeClass('busted-max busted-limit')
+
   # Instance methods
   stories: ->
     stories = {}

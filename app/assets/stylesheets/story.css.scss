@@ -95,4 +95,5 @@
   }
 }
 
-.busted-max .story-placeholder .bar { @include gradient-striped(#ee5f5b); }
+.busted-max .story-placeholder .bar { @include gradient-striped(#cc0000); }
+.busted-limit .story-placeholder .bar { @include gradient-striped(#FCCE4B); }

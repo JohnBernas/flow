@@ -14,8 +14,12 @@ class Column < ActiveRecord::Base
     where("data -> 'default' = 'true'").first
   end
 
-  def limit?
-    limit && stories.count >= limit.to_i
+  def overflowing?
+    limit && stories.count > limit.to_i
+  end
+
+  def at_capacity?
+    limit && stories.count == limit.to_i
   end
 
   def move_stories_to_inbox_column

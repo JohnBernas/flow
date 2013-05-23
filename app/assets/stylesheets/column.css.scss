@@ -26,6 +26,11 @@ section.board {
         background: #cc0000;
         border-color: #990000;
       }
+
+      &.busted-limit {
+        background: #FCCE4B;
+        border-color: #C79C30;
+      }
     }
   }
 

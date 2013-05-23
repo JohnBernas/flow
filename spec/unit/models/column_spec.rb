@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Swimlane do
+describe Column do
   Given(:data) { { 'labels' => 'c.customer1', 'limit' => 3 } }
   Given(:board) { create(:board) }
 
@@ -9,22 +9,41 @@ describe Swimlane do
     Then { expect(board.columns.inbox).to eq inbox }
   end
 
-  context '#limit?' do
+  context '#overflowing?' do
     Given!(:column) { create(:column, board: board, data: data) }
 
     context 'for <' do
       Given { create_list(:story, 2, column: column) }
-      Then { expect(column.limit?).to be_false }
+      Then { expect(column.overflowing?).to be_false }
     end
 
     context 'for ==' do
       Given { create_list(:story, 3, column: column) }
-      Then { expect(column.limit?).to be_true }
+      Then { expect(column.overflowing?).to be_false }
     end
 
     context 'for >' do
+      Given { create_list(:story, 4, column: column) }
+      Then { expect(column.overflowing?).to be_true }
+    end
+  end
+
+  context '#at_capacity?' do
+    Given!(:column) { create(:column, board: board, data: data) }
+
+    context 'for <' do
+      Given { create_list(:story, 2, column: column) }
+      Then { expect(column.at_capacity?).to be_false }
+    end
+
+    context 'for ==' do
       Given { create_list(:story, 3, column: column) }
-      Then { expect(column.limit?).to be_true }
+      Then { expect(column.at_capacity?).to be_true }
+    end
+
+    context 'for >' do
+      Given { create_list(:story, 4, column: column) }
+      Then { expect(column.at_capacity?).to be_false }
     end
   end
 
