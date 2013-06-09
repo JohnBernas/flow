@@ -76,6 +76,8 @@ class Label
       State.new(story).started(if: :accepted)
       remove_column_labels
       add(column_label)
+    else
+      remove_column_labels
     end
   end
 
