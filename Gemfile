@@ -25,6 +25,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'pry-debugger'
+  gem 'dotenv-rails'
 end
 
 group :test do
