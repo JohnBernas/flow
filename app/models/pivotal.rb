@@ -1,5 +1,4 @@
 class Pivotal
-
   def self.create_or_update_from_remote(remote)
     remote = get_remote(remote)
     board = Board.where("data -> 'project_id' = ?::text", remote.project_id).first
@@ -19,10 +18,9 @@ class Pivotal
     if remote.respond_to?(:id)
       remote
     elsif remote.is_a?(Hash)
-      remote = remote.with_indifferent_access
       PivotalTracker::Story.find(remote[:id], remote[:project_id])
     else
-      raise 'Remote needs to be PivotalTracker instance or Hash with id and project_id'
+      raise ArgumentError, 'Remote needs to be PivotalTracker instance or Hash with id and project_id'
     end
   end
 
@@ -31,7 +29,6 @@ class Pivotal
   def initialize(remote, story = nil)
     @remote = remote.respond_to?(:id) ? remote : Pivotal.get_remote(remote)
     @story = story.respond_to?(:id) ? story : Pivotal.get_story(remote).first
-    raise 'Story not found, it requires a tracker -> id hash object' unless @story
   end
 
   def update_from_remote
