@@ -42,6 +42,10 @@ class Pivotal
     remote.update(story.tracker)
   end
 
+  def icebox_story?
+    remote.current_state == 'unscheduled'
+  end
+
   def story_changed?(occurred_at)
     return true unless story # If it's a new story, it has changed...
     remote_is_newer?(occurred_at) && attributes_changed?(:current_state, :labels)

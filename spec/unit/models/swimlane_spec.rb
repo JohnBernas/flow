@@ -11,7 +11,7 @@ describe Swimlane do
 
   context '.labels' do
     Given { create(:swimlane, board: board, data: { 'labels' => 'client2' }) }
-    Then { expect(board.swimlanes.labels.sort).to eq %w[swim1 client1 client2].sort }
+    Then  { expect(board.swimlanes.labels.sort).to eq %w[swim1 client1 client2].sort }
   end
 
   context '#labels' do

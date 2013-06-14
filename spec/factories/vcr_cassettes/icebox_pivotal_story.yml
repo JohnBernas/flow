@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.pivotaltracker.com/services/v3/projects/769661/stories/45428597
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      X-Trackertoken:
+      - 18f86dbd66f19cd169a3dfa52afd75ba
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - '200'
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
+      Etag:
+      - '"657669e67fa2e1447bdfcb21caee3e4e"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      X-Runtime:
+      - '39'
+      Server:
+      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA31RTU8CMRC98ysme5fu8qWQUg5GDyYmJuqZlHaUytLWdsqK
+        v97uioKaeJy+j3nzyhdv2xp2GKJxdl5U/bIAtMppY5/nxePD9dlFsRA9HsmF
+        vegBcKOB9h7nhbGEzxgKMRqPBhfj6TlnRncUH9wLKlr+pZ5PppNJxdmR0Qk6
+        92VrK55QUgrI2clbS0mhFmsiP2OsaZq+NztHsqYg1QZDX7ntp4DFtWvYMVEr
+        a+UYyWwl4e/sZznMF9YRVQoBLS0jZbZINqo16lSj5uwn1JI1RhWMp9yd4Ox0
+        alErtyisJLNDMHdrZxGk90AOZF27BnIJOimCVXBNzH2DtBryOrVxiTjr5K1P
+        wNeUM6JervbiBqWFWwz0ztkPoAsfcnuZJ+lwp85jPhwLMSirISuHrKpgMJxV
+        09mghMurh3zVt6Zblnyr+cdiwqoRVNminI3H2eI+exxFnUctV1hHgd4ozg5D
+        7/CjovcBkteT8HMCAAA=
+    http_version:
+  recorded_at: Fri, 14 Jun 2013 11:15:18 GMT
+- request:
+    method: get
+    uri: http://www.pivotaltracker.com/services/v3/projects/769661/stories/45428597
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      X-Trackertoken:
+      - 18f86dbd66f19cd169a3dfa52afd75ba
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - '200'
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
+      Etag:
+      - '"657669e67fa2e1447bdfcb21caee3e4e"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      X-Runtime:
+      - '46'
+      Server:
+      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA31RTU8CMRC98ysme5fu8qWQUg5GDyYmJuqZlHaUytLWdsqK
+        v97uioKaeJy+j3nzyhdv2xp2GKJxdl5U/bIAtMppY5/nxePD9dlFsRA9HsmF
+        vegBcKOB9h7nhbGEzxgKMRqPBhfj6TlnRncUH9wLKlr+pZ5PppNJxdmR0Qk6
+        92VrK55QUgrI2clbS0mhFmsiP2OsaZq+NztHsqYg1QZDX7ntp4DFtWvYMVEr
+        a+UYyWwl4e/sZznMF9YRVQoBLS0jZbZINqo16lSj5uwn1JI1RhWMp9yd4Ox0
+        alErtyisJLNDMHdrZxGk90AOZF27BnIJOimCVXBNzH2DtBryOrVxiTjr5K1P
+        wNeUM6JervbiBqWFWwz0ztkPoAsfcnuZJ+lwp85jPhwLMSirISuHrKpgMJxV
+        09mghMurh3zVt6Zblnyr+cdiwqoRVNminI3H2eI+exxFnUctV1hHgd4ozg5D
+        7/CjovcBkteT8HMCAAA=
+    http_version:
+  recorded_at: Fri, 14 Jun 2013 11:15:18 GMT
+recorded_with: VCR 2.5.0

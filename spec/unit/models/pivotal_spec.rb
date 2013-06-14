@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Pivotal do
   Given(:project_id) { '769661' }
   Given(:remote_story_id) { '45428551' }
+  Given(:icebox_story_id) { '45428597' }
   Given!(:board)   { create(:board, data: { project_id: 769661 }) }
   Given(:column)  { create(:column, board: board) }
   Given(:story)   { create(:story, column: column) }
@@ -40,6 +41,24 @@ describe Pivotal do
       Given!(:story) { create(:story, column: column, tracker: { id: remote_story_id }) }
       Then { expect(pivotal.story).to eq story }
       Then { expect(pivotal.remote).to be_a PivotalTracker::Story }
+    end
+  end
+
+  describe '#icebox_story?' do
+    describe 'for icebox story' do
+      Given(:pivotal) do
+        VCR.use_cassette(:icebox_pivotal_story) { Pivotal.new(id: icebox_story_id, project_id: project_id) }
+      end
+      Then { expect(pivotal.remote.current_state).to eq 'unscheduled' }
+      And { expect(pivotal.icebox_story?).to be_true }
+    end
+
+    describe 'for non-icebox story' do
+      Given(:pivotal) do
+        VCR.use_cassette(:remote_story_id) { Pivotal.new(id: remote_story_id, project_id: project_id) }
+      end
+      Then { expect(pivotal.remote.current_state).to eq 'delivered' }
+      And { expect(pivotal.icebox_story?).to be_false }
     end
   end
 end

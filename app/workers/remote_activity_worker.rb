@@ -6,6 +6,7 @@ class RemoteActivityWorker
     activity.stories.each do |story_activity|
       pivotal = Pivotal.new(id: story_activity['id'], project_id: activity.project_id)
 
+      next if pivotal.icebox_story?
       next unless pivotal.story_changed?(activity.occurred_at)
 
       details = Pivotal.create_or_update_from_remote(pivotal.remote)
