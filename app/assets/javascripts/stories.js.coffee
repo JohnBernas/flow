@@ -15,8 +15,11 @@ class window.Story
     link    = $('<a>').appendTo(key).attr('href', story.tracker.url).attr('target', '_blank').text(story.tracker.id)
 
     if story.tracker.zendesk_id
+      # Fix for incorrect Zendesk url's being sent by the pivotal-tracker gem
+      zd_url = story.tracker.zendesk_url.replace /(\d+)$/, ($1) -> "tickets/#{$1}"
+
       $('<span>').appendTo(key).text(' | ')
-      $('<a>').appendTo(key).attr('href', story.tracker.zendesk_url).attr('target', '_blank').text("##{story.tracker.zendesk_id}")
+      $('<a>').appendTo(key).attr('href', zd_url).attr('target', '_blank').text("##{story.tracker.zendesk_id}")
 
     summary = $('<div>').appendTo(fields).addClass('summary')
     title   = $('<span>').appendTo(summary).addClass('inner').attr('title', story.tracker.name).text(story.tracker.name)
