@@ -7,7 +7,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'pivotal-tracker'
+gem 'pivotal-tracker', github: 'kabisaict/pivotal-tracker', ref: 'c7b32'
 gem 'websocket-rails', group: %w[development production staging]
 gem 'focused_controller', github: 'JeanMertz/focused_controller'
 gem 'ranked-model', github: 'JeanMertz/ranked-model'

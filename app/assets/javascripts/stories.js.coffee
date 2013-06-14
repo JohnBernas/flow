@@ -13,6 +13,11 @@ class window.Story
     fields  = $('<div>').appendTo(node).addClass('story-fields')
     key     = $('<div>').appendTo(fields).addClass('key')
     link    = $('<a>').appendTo(key).attr('href', story.tracker.url).attr('target', '_blank').text(story.tracker.id)
+
+    if story.tracker.zendesk_id
+      $('<span>').appendTo(key).text(' | ')
+      $('<a>').appendTo(key).attr('href', story.tracker.zendesk_url).attr('target', '_blank').text("##{story.tracker.zendesk_id}")
+
     summary = $('<div>').appendTo(fields).addClass('summary')
     title   = $('<span>').appendTo(summary).addClass('inner').attr('title', story.tracker.name).text(story.tracker.name)
 
