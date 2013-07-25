@@ -1,6 +1,7 @@
 module BoardsController
   class Show < ApplicationController
     expose(:board) { Board.find_by_id(params[:id]) }
+    expose(:dashboard) { params[:dashboard] ? true : false }
   end
 
   class Synchronize < ApplicationController

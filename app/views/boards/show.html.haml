@@ -1,3 +1,8 @@
+- content_for :dashboard_head do
+  - if dashboard
+    = stylesheet_link_tag '//fonts.googleapis.com/css?family=Dosis:400,600,700,800'
+    = stylesheet_link_tag 'dashboard', media: 'all', data: { turbolinks_track: true }
+
 %section[board]{ data: { id: board.id} }
   .table
     %ul.headers= render partial: 'columns/header', collection: board.columns.ordered

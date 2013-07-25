@@ -1,0 +1,32 @@
+// Dashboard layout for television screens
+
+$height: 120px;
+$yellow: #ffc40d;
+
+.story {
+  height: auto;
+  margin: 16px 0;
+  padding: 0px 8px 0px 32px;
+
+  background: lighten($yellow, 40%);
+  border: 2px solid #ededed;
+  border-right: none;
+  border-left: none;
+  border-top-color: #ededed;
+  border-bottom-color: #e0e0e0;
+
+  .story-fields {
+    .key a { display: none; }
+    .summary {
+      .inner {
+        color: #646464;
+        font-family: 'Dosis', sans-serif;
+        font-weight: 600;
+        font-size: 2.1em;
+        line-height: 2.2em;
+        height: auto;
+        margin: 6px 0;
+      }
+    }
+  }
+}
