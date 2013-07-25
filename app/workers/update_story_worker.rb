@@ -10,7 +10,5 @@ class UpdateStoryWorker
     State.new(story).assign_attributes
     Label.new(story).assign_attributes
     story.save
-
-    UpdatePivotalWorker.perform_async(story.id)
   end
 end

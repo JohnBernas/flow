@@ -21,22 +21,6 @@ GIT
       rspec (>= 2.13)
       sorcerer (>= 0.3.7)
 
-GIT
-  remote: git://github.com/kabisaict/pivotal-tracker.git
-  revision: c7b327de982daad3986c250c472c75c4212e2003
-  ref: c7b32
-  specs:
-    pivotal-tracker (0.5.10)
-      builder
-      builder
-      crack
-      happymapper (>= 0.3.2)
-      nokogiri (>= 1.4.3)
-      nokogiri (>= 1.5.5)
-      nokogiri-happymapper (>= 0.5.4)
-      rest-client (~> 1.6.0)
-      rest-client (~> 1.6.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -131,8 +115,6 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    happymapper (0.4.0)
-      libxml-ruby (~> 2.0)
     hashie (2.0.5)
     hike (1.2.2)
     hiredis (0.4.5)
@@ -145,20 +127,14 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.8.0)
-    libxml-ruby (2.6.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
-    mini_portile (0.5.0)
     minitest (4.7.4)
     multi_json (1.7.3)
     multipart-post (1.2.0)
-    nokogiri (1.6.0)
-      mini_portile (~> 0.5.0)
-    nokogiri-happymapper (0.5.7)
-      nokogiri (~> 1.5)
     pg (0.15.1)
     polyglot (0.3.3)
     pry (0.9.12.2)
@@ -300,7 +276,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   pg
-  pivotal-tracker!
   pry-debugger
   pry-rails
   rails (= 4.0.0.rc1)
