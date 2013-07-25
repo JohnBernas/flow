@@ -24,7 +24,7 @@ class Swimlane < ActiveRecord::Base
   def stories
     stories = board.stories.joins("INNER JOIN swimlanes ON
       ((string_to_array(swimlanes.data -> 'labels', ','))
-      && (string_to_array(stories.tracker -> 'labels', ',')))")
+      && (string_to_array(stories.remote -> 'tags', ',')))")
 
     if labels.any?
       stories.where('swimlanes.id = ?', id)

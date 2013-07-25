@@ -4,7 +4,7 @@ class AddHstoreIndexes < ActiveRecord::Migration
       execute "CREATE INDEX #{table}_data ON #{table} USING GIN(data)"
     end
 
-    execute 'CREATE INDEX stories_tracker ON stories USING GIN(tracker)'
+    execute 'CREATE INDEX stories_remote ON stories USING GIN(remote)'
   end
 
   def down
@@ -12,6 +12,6 @@ class AddHstoreIndexes < ActiveRecord::Migration
       execute "DROP INDEX #{table}_data"
     end
 
-    execute 'DROP INDEX stories_tracker'
+    execute 'DROP INDEX stories_remote'
   end
 end

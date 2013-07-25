@@ -3,7 +3,7 @@ class Label
 
   def initialize(story)
     @story  = story
-    @labels = tracker['labels'].split(',') rescue []
+    @labels = remote['tags'].split(',') rescue []
   end
 
   def to_a
@@ -65,8 +65,8 @@ class Label
   end
 
   def save(persist = true)
-    attributes = tracker.merge('labels' => labels.join(','))
-    persist ? story.update_attributes(tracker: attributes) : story.assign_attributes(tracker: attributes)
+    attributes = remote.merge('tags' => labels.join(','))
+    persist ? story.update_attributes(remote: attributes) : story.assign_attributes(remote: attributes)
   end
 
   def assign_attributes
@@ -83,7 +83,7 @@ class Label
 
 private
 
-  def tracker
-    @story.tracker
+  def remote
+    @story.remote
   end
 end

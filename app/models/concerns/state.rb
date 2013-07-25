@@ -3,7 +3,7 @@ class State
 
   def initialize(story)
     @story = story
-    @state = tracker['current_state']
+    @state = remote['current_state']
   end
 
   def to_s
@@ -56,7 +56,7 @@ private
     story.started_at = Time.zone.now unless story.started_at
   end
 
-  def tracker
-    @story.tracker
+  def remote
+    @story.remote
   end
 end

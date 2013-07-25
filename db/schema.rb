@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20130519053851) do
 
   create_table "boards", force: true do |t|
     t.string   "title"
-    t.hstore   "data",       default: {}, null: false
+    t.hstore   "data",       default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20130519053851) do
     t.string   "title"
     t.integer  "display",    default: 0
     t.integer  "board_id"
-    t.hstore   "data",       default: {}, null: false
+    t.hstore   "data",       default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,21 +41,21 @@ ActiveRecord::Schema.define(version: 20130519053851) do
   create_table "stories", force: true do |t|
     t.integer  "priority",   default: 0
     t.integer  "column_id"
-    t.hstore   "data",       default: {}, null: false
-    t.hstore   "tracker",    default: {}, null: false
+    t.hstore   "data",       default: "", null: false
+    t.hstore   "remote",     default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "stories", ["column_id"], name: "index_stories_on_column_id", using: :btree
   add_index "stories", ["data"], name: "stories_data", using: :gin
-  add_index "stories", ["tracker"], name: "stories_tracker", using: :gin
+  add_index "stories", ["remote"], name: "stories_remote", using: :gin
 
   create_table "swimlanes", force: true do |t|
     t.string   "title"
     t.integer  "horizontal", default: 0
     t.integer  "board_id"
-    t.hstore   "data",       default: {}, null: false
+    t.hstore   "data",       default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
