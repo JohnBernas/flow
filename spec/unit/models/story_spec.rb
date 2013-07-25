@@ -7,7 +7,7 @@ describe Story do
 
   context '#as_json' do
     When(:json) { JSON.parse(story.to_json) }
-    Then { expect(json.keys).to eq %w[id column_id tracker pid sid labels] }
+    Then { expect(json.keys).to eq %w[id column_id remote pid sid labels] }
   end
 
   context '#board' do
@@ -16,18 +16,18 @@ describe Story do
 
   context '#labels' do
     context 'without labels' do
-      Given { story.stub_chain(:tracker, :[]).with('labels').and_return(nil) }
+      Given { story.stub_chain(:remote, :[]).with('tags').and_return(nil) }
       Then  { expect(story.labels).to eq [] }
     end
 
     context 'with two labels' do
-      Given { story.stub_chain(:tracker, :[]).with('labels').and_return('label1,label2') }
+      Given { story.stub_chain(:remote, :[]).with('tags').and_return('label1,label2') }
       Then  { expect(story.labels).to eq %w[label1 label2] }
     end
   end
 
   context '#pid' do
-    Given { story.stub_chain(:tracker, :[]).with('id').and_return('123456') }
+    Given { story.stub_chain(:remote, :[]).with('id').and_return('123456') }
     Then  { expect(story.pid).to eq '123456' }
   end
 
@@ -79,9 +79,9 @@ describe Story do
     end
 
     context 'with a single swimlane' do
-      Given(:tracker) { { 'labels' => 'client3' } }
+      Given(:remote) { { 'labels' => 'client3' } }
       Given!(:swimlane) { create(:swimlane, board: board, data: data) }
-      Given!(:stories_in_swimlane) { create_list(:story, 2, column: column, tracker: tracker) }
+      Given!(:stories_in_swimlane) { create_list(:story, 2, column: column, remote: remote) }
 
       When(:scope) { Story.scope_stories_based_on_swimlane_of_story(stories_in_swimlane.first) }
       Then { expect(scope.map(&:id)).to eq stories_in_swimlane.map(&:id) }
@@ -90,9 +90,9 @@ describe Story do
     context 'with two swimlanes' do
       Given { create(:swimlane, board: board, data: data) }
       Given { create(:swimlane, board: board, data: { 'labels' => 'critical' }) }
-      Given!(:client3_story_in_swimlane1) { create(:story, column: column, tracker: { 'labels' => 'client3' }) }
-      Given!(:client4_story_in_swimlane1) { create(:story, column: column, tracker: { 'labels' => 'client4' }) }
-      Given(:critical_story_in_swimlane2) { create(:story, column: column, tracker: { 'labels' => 'critical' }) }
+      Given!(:client3_story_in_swimlane1) { create(:story, column: column, remote: { 'tags' => 'client3' }) }
+      Given!(:client4_story_in_swimlane1) { create(:story, column: column, remote: { 'tags' => 'client4' }) }
+      Given(:critical_story_in_swimlane2) { create(:story, column: column, remote: { 'tags' => 'critical' }) }
       When(:swimlane1_stories) { Story.scope_stories_based_on_swimlane_of_story(client3_story_in_swimlane1) }
       When(:swimlane2_stories) { Story.scope_stories_based_on_swimlane_of_story(critical_story_in_swimlane2) }
 

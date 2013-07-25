@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://jean%40kabisa.nl%2Ftoken:LffBvP0I5jJ1FzkwxHxeBnQI7uzfkdvR4CeHbtPm@kabisa.zendesk.com/api/v2/tickets/200
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - ZendeskAPI API 0.3.12
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.15
+      Date:
+      - Wed, 24 Jul 2013 11:04:04 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Zendesk-Api-Version:
+      - v2
+      X-Runtime:
+      - '97'
+      Etag:
+      - '"c214925d46b08100e7637ad5b632ad3d"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      X-Zendesk-Origin-Server:
+      - app26.sys.zendesk.com
+      X-Zendesk-User-Id:
+      - '283877263'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA61UTY/bNhD9KwQvmwBeW1LX9q5yKDYN0ObQ9tAABdoUBk2N
+        JcYUqfLDirPwf+8jZe9uFnvswRZIzsx78+bjgQcl9xR4/cCj07zmXQiDrxeL
+        vdgqL+bfyDTk93Np+4UY1OJQLSYPv6iKYv7FW8NnXDW8xnHG6WsgZ4TepBsT
+        tZ7xgxIpuuyEMZQQRtrCxdvoJKWXnbM9vqcZD3b6umSXvE+4lI5EoGYjQJJX
+        RVldF+V1dfOpLOrlqq6qvxAsDs1Lm+V18cOnsqzLdV1mm3AcAMcHZ7ea+sQg
+        br+QTFE/kKZATEhpowlMBDaO4/xo43ibEoctNJBODUEh3Zq/d6KffXafTfr9
+        SaxRXtoDOWpY6OCtDPvgrAlkmBgG4cgEfcQTsTPS/RlpF41MMZnyTDRiQJ5s
+        Kzz+cZfsR+v2bEwITYqarrYUHTkmDMDIOaG0hjGZgwJkDyg/v1D7+MQDMTpx
+        IBZGy5ISntkd81Jo8vXF/Jr9rhv2s6Mj4GExdkgpY0ZPDgxx0srsU5qIkrg4
+        1bQQDlyMDZfbHJa9mT7ITFpUXqbcvnN7+4T7G43svRZyf6bE3vxy/+v9WzBQ
+        sptE8KKf0C8CTOTfZW6PpXsNbeIxcWTQqoX9d0QuPP6w7Jlir5TLdzZCIYle
+        c2xnEaYjP2nqVYgildLP2ccANUZA2b2HYPtJQ4McpW0o11p7yxoatD3mnkk6
+        J4KokifK3rmRLNDaVI+cJOph4IVeVaaF/WPW8EFMw67ujTWK+qvJHg2jwpWH
+        y0FJ9FKqVXjHaN7On1Vvk2Nj5DL9xC6V0lGPjm7mj730E+JjIpjsCGVSuxzh
+        RTvn9EaBimPYW2TmSE69/zQRP17UxlQNTlmnwjGtHdV2aSaDCNHjLLXFGOAG
+        IdSgEOWyTxz9G8mjAnnHlDflqlgv12We516FVx6E96o1RNlhVa7L4m55O+PW
+        tcKobznt/FQVq+VqvV7NeOtsHM53ZVUs72AurdZia50INkGD5N//zDi6IPab
+        YAcln+2885J5dtMJv1FGqiYNKK936ADCWomU99q0KYNoU1SuUAB1oE1eQEkU
+        LW7Rec5zAMrog+03O0U6c3iYlm9ZFNXNHagfhI7Yc3l7zs6PRVmUNxVyOD++
+        QDghrIcMfifyNtogR3TYhZbvhMNxI9CJlBbMs+z/ZxY7aGzHLH3W93T6D1Lr
+        wN6hBgAA
+    http_version:
+  recorded_at: Wed, 24 Jul 2013 11:04:04 GMT
+recorded_with: VCR 2.5.0

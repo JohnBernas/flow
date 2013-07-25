@@ -7,7 +7,7 @@ describe Label do
   Given(:label)   { Label.new(story) }
 
   Given do
-    story.stub(:tracker) { { 'labels' => labels } }
+    story.stub(:remote) { { 'tags' => labels } }
     story.stub(:column) { column }
     column.stub_chain(:data, :[]).with('label') { 's.acceptance' }
     label.stub(:save)

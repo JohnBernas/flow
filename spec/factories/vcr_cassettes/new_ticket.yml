@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://jean%40kabisa.nl%2Ftoken:LffBvP0I5jJ1FzkwxHxeBnQI7uzfkdvR4CeHbtPm@kabisa.zendesk.com/api/v2/tickets/1192
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - ZendeskAPI API 0.3.12
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.15
+      Date:
+      - Wed, 24 Jul 2013 11:04:05 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Zendesk-Api-Version:
+      - v2
+      X-Runtime:
+      - '137'
+      Etag:
+      - '"f6e7aabab826da09c8cff1e47ff3038e"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      X-Zendesk-Origin-Server:
+      - app24.sys.zendesk.com
+      X-Zendesk-User-Id:
+      - '283877263'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6VSzY7bIBB+lRVnb4xJtEn8HD21qqwxnjhsMNABst2N/O4d
+        7HblQ6UeekLMz/cHD5GMvmES7UNksqIV15RCbOv6Br2JsPtAN2C87bSfagim
+        vqt63Yh105zV7jV6JyphBtGWeyXwZ0JyYLtSctnaStwNFHx9BeewcLxhzzvR
+        Z9JYOhfyE59zJZJfTypzZXvmoiaEhEMHLFMo2eyf5fFZHb40TStVe2i+MlgO
+        wz9n0ntgulVTzP0r6gIYA+qnu6anhDExEtvVZEIybKwVpWjcyPVAxpNJ758I
+        CVKOPOLwjduE2gSDjiFXBsIfmZeRliTUaX86HtXLnn3nfjLpLw2I0YwOcROd
+        pxGc+YCiZsWR8izPp2MlRvI5bEa1txZ6T5B8oWRl375X4uIpT13ywejNbCDf
+        W5w2lSvEzjhtBnbAqxewETmLjEvqq6MEY0EV69cQjK5zTH7qLgbtQvhYPoJq
+        pFSH8wu/PNjMkS9oc/W7KxvZHNTpsyvEzFCRPcYL6MUpmyih/3mrKxBfOxgJ
+        cWKBG3v/zTzPvwDQvgOuBAMAAA==
+    http_version:
+  recorded_at: Wed, 24 Jul 2013 11:04:05 GMT
+recorded_with: VCR 2.5.0

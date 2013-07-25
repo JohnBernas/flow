@@ -20,8 +20,8 @@ describe Swimlane do
 
   context '#stories' do
     Given(:column) { create(:column, board: board) }
-    Given(:story1) { create(:story, column: column, tracker: { 'labels' => 'swim1' }) }
-    Given { create(:story, column: column, tracker: { 'labels' => 'client3' }) }
+    Given(:story1) { create(:story, column: column, remote: { 'tags' => 'swim1' }) }
+    Given { create(:story, column: column, remote: { 'tags' => 'client3' }) }
     Given { create(:story, column: column) }
 
     Then { expect(swimlane.stories).to eq [story1] }
