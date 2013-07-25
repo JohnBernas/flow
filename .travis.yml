@@ -11,6 +11,9 @@ rvm:
 env:
   global:
     - DISPLAY=":99.0"
+    - ZENDESK_USER='ci'
+    - ZENDESK_TOKEN='ci'
+    - ZENDESK_HOST='ci'
 
 script:
   - "bundle exec rake spec"
