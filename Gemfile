@@ -11,11 +11,12 @@ gem 'pivotal-tracker', github: 'kabisaict/pivotal-tracker', ref: 'c7b32'
 gem 'websocket-rails', group: %w[development production staging]
 gem 'focused_controller', github: 'JeanMertz/focused_controller'
 gem 'ranked-model', github: 'JeanMertz/ranked-model'
-gem 'actionpack-xml_parser', github: 'rails/actionpack-xml_parser', ref: '13b87'
+# gem 'actionpack-xml_parser', github: 'rails/actionpack-xml_parser', ref: '13b87'
 gem 'haml-rails'
 gem 'bourbon'
 gem 'bootstrap-sass'
 gem 'jquery-ui-rails'
+gem 'zendesk_api'
 
 gem 'sidekiq'
 gem 'slim'

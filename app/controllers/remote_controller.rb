@@ -3,7 +3,9 @@ module RemoteController
     skip_before_filter :verify_authenticity_token
 
     def call
-      RemoteActivityWorker.perform_async(params)
+      zd = Zendesk.new(params['id'])
+      WebsocketRails[:stories].trigger(:story_update, zd.story)
+
       head 200
     end
   end

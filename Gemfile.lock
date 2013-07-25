@@ -37,14 +37,6 @@ GIT
       rest-client (~> 1.6.0)
       rest-client (~> 1.6.0)
 
-GIT
-  remote: git://github.com/rails/actionpack-xml_parser.git
-  revision: 13b8750446f472d7d5191d79eee2209dbff675d6
-  ref: 13b87
-  specs:
-    actionpack-xml_parser (0.1.0)
-      actionpack (~> 4.0.0.beta)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -125,6 +117,10 @@ GEM
       railties (>= 3.0.0)
     faker (1.1.2)
       i18n (~> 0.5)
+    faraday (0.8.7)
+      multipart-post (~> 1.1)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     faye-websocket (0.6.1)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.2.0)
@@ -137,9 +133,11 @@ GEM
       railties (>= 3.1, < 4.1)
     happymapper (0.4.0)
       libxml-ruby (~> 2.0)
+    hashie (2.0.5)
     hike (1.2.2)
     hiredis (0.4.5)
     i18n (0.6.4)
+    inflection (1.0.0)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -156,6 +154,7 @@ GEM
     mini_portile (0.5.0)
     minitest (4.7.4)
     multi_json (1.7.3)
+    multipart-post (1.2.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nokogiri-happymapper (0.5.7)
@@ -276,12 +275,19 @@ GEM
       rails
       redis
       thin
+    zendesk_api (0.3.12)
+      faraday (>= 0.8.0)
+      faraday_middleware (>= 0.8.7)
+      hashie (>= 1.2)
+      inflection
+      json
+      mime-types
+      multipart-post
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack-xml_parser!
   bootstrap-sass
   bourbon
   coffee-rails (~> 4.0.0)
@@ -310,3 +316,4 @@ DEPENDENCIES
   vcr
   webmock
   websocket-rails
+  zendesk_api
