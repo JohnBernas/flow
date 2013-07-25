@@ -12,17 +12,11 @@ class window.Story
     node    = $('<div>').addClass('story').attr('data-id', story.id)
     fields  = $('<div>').appendTo(node).addClass('story-fields')
     key     = $('<div>').appendTo(fields).addClass('key')
-    link    = $('<a>').appendTo(key).attr('href', story.tracker.url).attr('target', '_blank').text(story.tracker.id)
 
-    if story.tracker.zendesk_id
-      # Fix for incorrect Zendesk url's being sent by the pivotal-tracker gem
-      zd_url = story.tracker.zendesk_url.replace /(\d+)$/, ($1) -> "tickets/#{$1}"
-
-      $('<span>').appendTo(key).text(' | ')
-      $('<a>').appendTo(key).attr('href', zd_url).attr('target', '_blank').text("##{story.tracker.zendesk_id}")
-
+    url = story.remote.url.replace('/api/v2', '').replace('.json', '')
+    link    = $('<a>').appendTo(key).attr('href', url).attr('target', '_blank').text(story.remote.id)
     summary = $('<div>').appendTo(fields).addClass('summary')
-    title   = $('<span>').appendTo(summary).addClass('inner').attr('title', story.tracker.name).text(story.tracker.name)
+    title   = $('<span>').appendTo(summary).addClass('inner').attr('title', story.remote.subject).text(story.remote.subject)
 
     window.stories[story.id] = new window.Story(node)
 
@@ -36,11 +30,11 @@ class window.Story
 
   # Instance methods
   update_attributes: (story) ->
-    @title = story.tracker.name
+    @title = story.remote.subject
     @id = story.id
     @pid = story.pid
     @sid = story.sid
-    @tracker = story.tracker
+    @remote = story.remote
     @labels = story.labels
     @priority = story.priority
     @swimlane = Swimlane.find(story.sid)
@@ -78,7 +72,7 @@ class window.Story
       pid: @pid
       priority: @priority
       sid: @swimlane.id
-      tracker: @tracker
+      remote: @remote
     }
 
   # Private methods
