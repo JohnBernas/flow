@@ -11,12 +11,12 @@ class window.Story
   @create: (story) ->
     node    = $('<div>').addClass('story').attr('data-id', story.id)
     fields  = $('<div>').appendTo(node).addClass('story-fields')
-    key     = $('<div>').appendTo(fields).addClass('key')
-
     url = story.remote.url.replace('/api/v2', '').replace('.json', '')
-    link    = $('<a>').appendTo(key).attr('href', url).attr('target', '_blank').text(story.remote.id)
     summary = $('<div>').appendTo(fields).addClass('summary')
-    title   = $('<span>').appendTo(summary).addClass('inner').attr('title', story.remote.subject).text(story.remote.subject)
+
+    link_title = $('<a>').attr('href', url).attr('target', '_blank').text("##{story.remote.id}: #{story.remote.subject}")
+
+    $('<span>').addClass('inner').append(link_title).appendTo(summary)
 
     window.stories[story.id] = new window.Story(node)
 
@@ -32,19 +32,18 @@ class window.Story
   update_attributes: (story) ->
     @title = story.remote.subject
     @id = story.id
-    @pid = story.pid
-    @sid = story.sid
+    @remote_id = story.remote_id
+    @swimlane_id = story.swimlane_id
     @remote = story.remote
     @labels = story.labels
     @priority = story.priority
-    @swimlane = Swimlane.find(story.sid)
+    @swimlane = Swimlane.find(story.swimlane_id)
     @column = @swimlane.columns[story.column_id]
 
     @_story_updated('updated')
     @ # chaining
 
   publish: ->
-    @_el_title.html(@title)
     @_el.appendTo(@swimlane.columns[@column.id].el)
     @_set_priority(@priority)
     @_story_updated('published')
@@ -69,9 +68,9 @@ class window.Story
       column_id: @column.id
       id: @id
       labels: @labels
-      pid: @pid
+      remote_id: @remote_id
       priority: @priority
-      sid: @swimlane.id
+      swimlane_id: @swimlane.id
       remote: @remote
     }
 

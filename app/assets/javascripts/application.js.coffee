@@ -74,9 +74,9 @@ $ ->
 
       receive: (e, ui) ->
         cid   = $(@).data('id')
-        sid   = $(@).parents('.swimlane').data('id')
+        swimlane_id   = $(@).parents('.swimlane').data('id')
 
-        $(ui.sender).sortable('cancel') if Swimlane.find(sid).columns[cid].is_full()
+        $(ui.sender).sortable('cancel') if Swimlane.find(swimlane_id).columns[cid].is_full()
 
       update: (e, ui) ->
         story = Story.find ui.item.data('id')

@@ -59,7 +59,7 @@ class window.Column
   stories: ->
     stories = {}
     for _, story of window.stories
-      stories[story.id] = story if story.column_id is @id and story.sid is @swimlane.id
+      stories[story.id] = story if story.column_id is @id and story.swimlane_id is @swimlane.id
     stories
 
   limit: -> parseInt @_el.data('limit')
