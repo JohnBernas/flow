@@ -6,12 +6,11 @@ class Column < ActiveRecord::Base
 
   ranks :display, with_same: :board_id
 
-  store_accessor :data, :default, :limit, :state, :label
   before_destroy :move_stories_to_inbox_column
   scope :ordered, -> { rank(:display) }
 
   def self.inbox
-    where("data -> 'default' = 'true'").first
+    where(default: true).first
   end
 
   def overflowing?

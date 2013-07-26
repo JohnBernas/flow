@@ -27,22 +27,25 @@ ActiveRecord::Schema.define(version: 20130519053851) do
   add_index "boards", ["data"], name: "boards_data", using: :gin
 
   create_table "columns", force: true do |t|
-    t.string   "title"
-    t.integer  "display",    default: 0
     t.integer  "board_id"
-    t.hstore   "data",       default: "", null: false
+    t.integer  "display",    default: 0
+    t.integer  "limit"
+    t.boolean  "default",    default: false, null: false
+    t.string   "title"
+    t.hstore   "criteria",   default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "columns", ["board_id"], name: "index_columns_on_board_id", using: :btree
-  add_index "columns", ["data"], name: "columns_data", using: :gin
+  add_index "columns", ["criteria"], name: "columns_criteria", using: :gin
 
   create_table "stories", force: true do |t|
-    t.integer  "priority",   default: 0
+    t.integer  "priority",    default: 0
     t.integer  "column_id"
-    t.hstore   "data",       default: "", null: false
-    t.hstore   "remote",     default: "", null: false
+    t.integer  "swimlane_id"
+    t.hstore   "data",        default: "", null: false
+    t.hstore   "remote",      default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,15 +55,17 @@ ActiveRecord::Schema.define(version: 20130519053851) do
   add_index "stories", ["remote"], name: "stories_remote", using: :gin
 
   create_table "swimlanes", force: true do |t|
-    t.string   "title"
-    t.integer  "horizontal", default: 0
     t.integer  "board_id"
-    t.hstore   "data",       default: "", null: false
+    t.integer  "ordering",   default: 0
+    t.integer  "limit"
+    t.boolean  "default",    default: false, null: false
+    t.string   "title"
+    t.hstore   "criteria",   default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "swimlanes", ["board_id"], name: "index_swimlanes_on_board_id", using: :btree
-  add_index "swimlanes", ["data"], name: "swimlanes_data", using: :gin
+  add_index "swimlanes", ["criteria"], name: "swimlanes_criteria", using: :gin
 
 end

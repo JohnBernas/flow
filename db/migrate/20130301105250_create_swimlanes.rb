@@ -1,10 +1,12 @@
 class CreateSwimlanes < ActiveRecord::Migration
   def change
     create_table :swimlanes do |t|
-      t.string :title
-      t.integer :horizontal, default: 0
       t.references :board, index: true
-      t.hstore :data, null: false, default: {}
+      t.integer :ordering, default: 0
+      t.integer :limit
+      t.boolean :default, null: false, default: false
+      t.string :title
+      t.hstore :criteria, null: false, default: {}
 
       t.timestamps
     end

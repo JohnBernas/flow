@@ -17,11 +17,9 @@ class Zendesk
       ticket = Zendesk.client.tickets.find(id: ticket)
     end
 
-    board = Board.where("data -> 'zendesk_account' = ?::text", URI(ticket.url).host).first
-    @story = board.stories.where("remote -> 'id' = ?::text", ticket.id).first_or_create(column: board.columns.inbox)
-
-    @story.update_attribute(:priority_position, :last)
-    @story.update_attributes(remote: attributes(ticket))
+    board = Board.where("data -> 'host' = ?::text", URI(ticket.url).host).first
+    @story = board.stories.where("remote -> 'id' = ?::text", ticket.id)
+      .first_or_create(column: board.columns.inbox, remote: attributes(ticket))
   end
 
 private

@@ -1,35 +1,16 @@
 class Swimlane < ActiveRecord::Base
+  SWIMLANIZERS = %w[tags status priority requester_id organization_id group_id]
+
   include RankedModel
-  ranks :horizontal, with_same: :board_id
+  ranks :ordering, with_same: :board_id
 
   belongs_to :board
   has_many :columns, through: :board
+  has_many :stories
 
-  store_accessor :data, :limit
-  default_scope -> { rank(:horizontal) }
+  default_scope -> { rank(:ordering) }
 
   def self.inbox
-    where("data -> 'default' = 'true'").first
-  end
-
-  def self.labels
-    select("(data -> 'labels') as labels").to_a.each_with_object([]){
-        |l,o| o << l['labels'] }.compact.join(',').split(',')
-  end
-
-  def labels
-    data['labels'] ? data['labels'].split(',') : []
-  end
-
-  def stories
-    stories = board.stories.joins("INNER JOIN swimlanes ON
-      ((string_to_array(swimlanes.data -> 'labels', ','))
-      && (string_to_array(stories.remote -> 'tags', ',')))")
-
-    if labels.any?
-      stories.where('swimlanes.id = ?', id)
-    else
-      board.stories.where("stories.id NOT IN (?)", stories)
-    end
+    find_by(default: true)
   end
 end
