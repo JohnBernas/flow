@@ -1,9 +1,8 @@
 class Story < ActiveRecord::Base
+  CRITERIA = %w[tags status priority requester_id organization_id group_id]
+
   include RankedModel
   ranks :priority, with_same: [:column_id, :swimlane_id]
-
-  after_save -> { update_column(:swimlane_id, matched_swimlane.id) }
-
   belongs_to :column
 
   scope :ordered, ->{ order(:column_id, :priority) }
@@ -18,6 +17,10 @@ class Story < ActiveRecord::Base
 
   def labels
     remote['tags'] ? remote['tags'].split(',') : []
+  end
+
+  def swimlane
+    Swimlane.find(swimlane_id)
   end
 
   def remote_id
