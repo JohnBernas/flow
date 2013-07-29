@@ -16,33 +16,32 @@ Story.channel = Event.dispatcher.subscribe('stories')
 
 $ ->
   # Setup board
-  new window.Board('section.board')
+  new window.Board('table.board')
 
   Story.channel.bind 'redraw', (stories) -> Story.redraw(stories)
 
   Story.channel.bind 'story_update', (stories) ->
     for story in _.flatten([stories], true)
-      window.Story
-        .find_or_create(story)
-        .update_attributes(story)
-        .publish()
-        .highlight(window.story_updated != story.id)
+      if ! story.column_id
+        window.Story.find(story).remove()
+      else
+        window.Story
+          .find_or_create(story)
+          .update_attributes(story)
+          .publish()
+          .highlight(window.story_updated != story.id)
 
-      delete window.story_updated
+        delete window.story_updated
 
 
   # Setup global storage containers
   window.stories = {}
   window.columns = {}
-  window.swimlanes = {}
+  window.swimlanes = []
 
-  # # Make instance variables of all swimlanes on the board
-  $(Swimlane.SELECTOR).each -> new window.Swimlane(@)
 
-  # # Make instance variables of all columns on the board
-  $(Column.SELECTOR).each -> new window.Column(@)
-
-  # # Make instance variables of all columns on the board
+  Column.reload()
+  Swimlane.reload()
   $(Story.SELECTOR).each -> new window.Story(@)
 
   $.getJSON "/boards/#{window.board.id}/stories", (stories) -> Story.redraw(stories)
@@ -52,14 +51,15 @@ $ ->
     Swimlane.find($(@).parents(Swimlane.SELECTOR).data('id')).close()
 
   # Disable columns when dragging stories
-  $(document).on 'mousedown', 'ul.stories', -> Column.disable()
+  # $(document).on 'mousedown', 'ul.stories', -> Column.disable()
 
   # Enable all stories after dragging
-  $(document).on 'mouseup', -> $('.stories').sortable('enable').sortable('refresh')
+  # $(document).on 'mouseup', -> $('.stories').sortable('enable').sortable('refresh')
 
   $('.swimlane').each ->
-    $(@).find('.column').sortable
-      connectWith: $(@).find('.column')
+    $(this).sortable
+      connectWith: ".swimlane[data-id=\"#{$(this).attr('data-id')}\"]"
+      items: '> li.story'
       revert: 100
       cursor: 'move'
       forcePlaceHolderSize: true
@@ -72,17 +72,31 @@ $ ->
         ui.placeholder.height(ui.item.height())
         $('<div>').appendTo(ui.placeholder).addClass('bar')
 
-      receive: (e, ui) ->
-        cid   = $(@).data('id')
-        swimlane_id   = $(@).parents('.swimlane').data('id')
+        # swimlanes = ui.item.parents('.stories').children('ul.swimlane')
+        id = ui.item.parents('.swimlane').data('id')
 
-        $(ui.sender).sortable('cancel') if Swimlane.find(swimlane_id).columns[cid].is_full()
+        $("ul.swimlane.empty[data-id=#{id}]").fadeIn 200, ->
+          $(this).sortable(window.sortableOpts)
+            .sortable('option', 'connectWith', ".swimlane[data-id=\"#{$(this).attr('data-id')}\"]")
+          $('.swimlane').sortable('refresh')
+
+        # toggleEmptySwimlanes(ui)
+
+
+      beforeStop: (e, ui) -> toggleEmptySwimlanes()
+
+      receive: (e, ui) ->
+        # rearangeSwimlanes(ui)
+        # cid   = $(this).data('id')
+        # swimlane_id   = $(this).parents('.swimlane').data('id')
+
+        # $(ui.sender).sortable('cancel') if Swimlane.find(swimlane_id).columns[cid].is_full()
 
       update: (e, ui) ->
-        story = Story.find ui.item.data('id')
-        story.drag_update(ui)
+        if this is ui.item.parent()[0]
+          story = Story.find ui.item.data('id')
+          story.drag_update(ui)
 
-        if @ is ui.item.parent()[0]
           window.story_updated = story.id
           setTimeout('delete(window.story_updated);', 500)
 
@@ -91,3 +105,31 @@ $ ->
 
           # Notify server of updated story
           Event.dispatcher.trigger('story_update', story.payload())
+
+  window.sortableOpts = $('.swimlane').sortable('option')
+
+  toggleEmptySwimlanes = ->
+    $('.swimlane').each ->
+      $(this).fadeOut(200, -> $(this).addClass('empty')) unless $(this).find('li.story').length
+        # $(this).fadeOut(200, -> $(this).remove()) unless $(this).find('li.story').length
+
+    # else
+    #   swimlane = ui.item.parents('.swimlane')
+    #   $('.stories').each ->
+    #     column = $(this)
+
+    #     if ! column.find(".swimlane[data-id=#{swimlane.attr('data-id')}]").length
+    #       clone = swimlane.clone()
+    #       clone.find('li:not(.header)').remove().end()
+    #       .hide().prependTo(column).fadeIn(200)
+    #       .sortable($(swimlane).sortable('option'))
+
+  rearangeSwimlanes = (ui) ->
+    $('.column .stories').each ->
+      array = []
+      column = $(this)
+      column.find('ul.swimlane').attr 'data-id', (i, e) -> array.push(e)
+
+      $.each array.sort(), (i, e) ->
+        column.find("ul.swimlane[data-id=#{e}]")
+          .appendTo(column).sortable('refresh')

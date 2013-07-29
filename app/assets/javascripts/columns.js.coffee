@@ -1,5 +1,5 @@
 class window.Column
-  @SELECTOR: '.column[data-id]'
+  @SELECTOR: 'td.column[data-id]'
 
   constructor: (element) ->
     @el = element
@@ -7,9 +7,13 @@ class window.Column
     @_set_attr_readers('public')
 
     # Global columns storage
-    window.columns[@id] = @
+    window.columns[@id] = this
 
   # Class methods
+  @reload: ->
+    window.columns = {}
+    $(Column.SELECTOR).each -> new window.Column(this)
+
   @find: (id) -> window.columns[id]
 
   @redraw: -> column.redraw() for _, column of window.columns
@@ -92,6 +96,7 @@ class window.Column
         # @swimlane         = @_get_lane()
         @board            = @_get_board()
         # @position         = @_get_position()
+        @swimlanes          = @_set_swimlanes()
 
   ## Getters
   _get_id: -> @_el.data('id')
@@ -111,3 +116,11 @@ class window.Column
       @_el_column.prepend(@el)
     else
       @_el_column.children().eq(@position-1).after(@el)
+
+  _set_swimlanes: ->
+    swimlanes = {}
+    for selector in @_el.find(Swimlane.SELECTOR)
+      swimlane = new Swimlane(selector)
+      swimlane.column = this
+      swimlanes[swimlane.id] = swimlane
+    swimlanes

@@ -1,5 +1,5 @@
 class window.Story
-  @SELECTOR: 'section.board .story[data-id]'
+  @SELECTOR: 'li.story[data-id]'
 
   constructor: (element) ->
     @el = element
@@ -9,7 +9,7 @@ class window.Story
   @find_or_create: (story) -> @find(story.id) or @create(story)
   @find: (id) -> window.stories[id]
   @create: (story) ->
-    node    = $('<div>').addClass('story').attr('data-id', story.id)
+    node    = $('<li>').addClass('story').attr('data-id', story.id)
     fields  = $('<div>').appendTo(node).addClass('story-fields')
     url = story.remote.url.replace('/api/v2', '').replace('.json', '')
     summary = $('<div>').appendTo(fields).addClass('summary')
@@ -37,17 +37,18 @@ class window.Story
     @remote = story.remote
     @labels = story.labels
     @priority = story.priority
-    @swimlane = Swimlane.find(story.swimlane_id)
-    @column = @swimlane.columns[story.column_id]
+    @column = Column.find(story.column_id)
+    @swimlane = Swimlane.find_or_create(@column, story.swimlane_id)
+    # @column.find_or_create_swimlane(story.swimlane_id)
 
     @_story_updated('updated')
-    @ # chaining
+    this # chaining
 
   publish: ->
-    @_el.appendTo(@swimlane.columns[@column.id].el)
+    @_el.appendTo(@column.swimlanes[@swimlane.id].el)
     @_set_priority(@priority)
     @_story_updated('published')
-    @ # chaining
+    this # chaining
 
   highlight: (go = true) ->
     @_el.stop(true, true).effect('highlight', { color: '#FFC200' }, 1500) if go
@@ -59,9 +60,12 @@ class window.Story
     @_story_updated('removed')
 
   drag_update: (ui) ->
+    Column.reload()
+    Swimlane.reload()
+
     @swimlane = Swimlane.find ui.item.parents('.swimlane').data('id')
-    @column   = @swimlane.columns[ui.item.parent().data('id')]
-    @priority = ui.item.parent().find(ui.item).index()
+    @column = Column.find(ui.item.parents('.column').data('id'))
+    @priority = ui.item.parent().find(ui.item).index() - 1
 
   payload: ->
     {
@@ -99,10 +103,10 @@ class window.Story
   _set_priority: (pos) ->
     pos = switch pos
             when "first", "middle" then 0
-            when "last" then $(@column.el).children().length
+            when "last" then @swimlane.stories.length
             else parseInt(pos)
 
     if pos is 0
-      $(@column.el).prepend(@el)
+      $(@swimlane.el).find('li.header').after(@el)
     else
-      $(@column.el).children().eq(pos-1).after(@el)
+      $(@swimlane.el).children('li.story').eq(pos-1).after(@el)
