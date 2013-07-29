@@ -1,14 +1,12 @@
 !!!
 %head
   %title Flow
+  = stylesheet_link_tag '//fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800|Vollkorn:400italic,700italic,400,700|Bree+Serif&subset=latin,latin-ext'
   = stylesheet_link_tag 'application', media: 'all', data: { turbolinks_track: true }
   = javascript_include_tag 'application', data: { turbolinks_track: true }
   = yield :dashboard_head
   = csrf_meta_tags
 
 %body
-  #root
-    #layouts_show
-      .window
-        %header.project= render 'layouts/header'
-        = yield
+  #header= render 'layouts/header'
+  #content= yield

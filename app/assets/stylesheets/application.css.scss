@@ -1,24 +1,94 @@
 @import 'bourbon';
 @import 'bootstrap';
 @import 'bootstrap-responsive';
+@import 'template';
 
-$columnWidth: 180px;
+$font-dosis: 'Dosis', sans-serif;
+$font-vollkorn: 'Vollkorn', serif;
+$font-bree: 'Bree Serif', serif;
 
-@import 'board';
-@import 'swimlane';
-@import 'column';
-@import 'story';
+$headerHeight: 0px;
+$storyBackgroundColor: #8fb347;
+$columnHeaderColor: #979697;
+$storyHeaderColor: darken($columnHeaderColor, 20%);
 
-html, body, #root {
+html, body {
   height: 100%;
 }
 
 body {
-  font-family: 'Helvetica Nue', Arial, Verdana, sans-serif;
-  background: #f5f5f5;
+  font-family: $font-bree;
+  background: $background-color;
 }
 
-#layouts_show {
-  position: relative;
+#header {
+  height: $headerHeight;
+}
+
+table.board th {
+  font-family: $font-vollkorn;
+  color: $columnHeaderColor;
+  font-size: 2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  height: 80px;
+  margin: 0;
+  text-align: center;
+  padding: 4px 0;
+  word-wrap: break-word;
+}
+
+#content {
+  height: calc(100% - 0px) // $headerHeight
+}
+
+#header table, #content table {
   height: 100%;
+  table-layout:fixed; word-wrap: break-word;
+}
+
+td.column {
+  height: 100%;
+
+  .stories {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+  }
+}
+
+ul.swimlane {
+  margin: 0 10px;
+
+  &.empty {
+    display: none;
+  }
+
+  div.summary {
+    height: 100px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 20px;
+    font-size: 1em;
+    line-height: 1.2em;
+  }
+
+  li {
+    display: block;
+    margin: 10px 0;
+    text-align: center;
+    width: 100%;
+    vertical-align: middle;
+    min-height: 100px;
+    background-color: $storyBackgroundColor;
+    overflow: hidden;
+
+    &.header {
+      height: 40px;
+      min-height: 40px;
+      line-height: 40px;
+      background-color: transparent;
+      color: $storyHeaderColor;
+    }
+  }
 }

@@ -1,1 +1,2 @@
-.column[column]{ data: { id: column.id, limit: column.limit } }
+%td[column]{ data: { id: column.id, limit: column.limit } }
+  .stories= render partial: 'swimlanes/swimlane', collection: column.swimlanes, locals: { column: column }
