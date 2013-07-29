@@ -15,7 +15,7 @@ Flow::Application.routes.draw do
       member { get :synchronize }
     end
 
-    post 'remote/activity' => 'remote#activity'#, defaults: { format: 'json' }
+    post 'remote/activity' => 'remote#activity'
 
     root to: 'boards#show', id: '1'
   end

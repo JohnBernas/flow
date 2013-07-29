@@ -25,42 +25,6 @@ class Story < ActiveRecord::Base
   end
 
   def assign_to_inbox_column
-    inbox = board.columns.inbox
-    Label.new(self).set_for_column(inbox)
-    State.new(self).set_for_column(inbox)
-    update_attributes(column: inbox, priority_position: :last)
-  end
-
-private
-
-  def matched_swimlane
-    matches = {}
-    # loop over each attribute of this story
-    remote.each do |key, value|
-      next unless Swimlane::SWIMLANIZERS.include?(key)
-
-      swimlanes = Swimlane.none
-      swimlanes = board.swimlanes
-        .where("string_to_array(swimlanes.criteria -> '#{key}', ',') && ?",
-        "{#{value}}")
-
-      # loop over all matches swimlanes, and add them with rankings
-      swimlanes.each do |swimlane|
-        if matches[swimlane.id]
-          matches[swimlane.id][:ranking] += 1
-        else
-          matches[swimlane.id] = { swimlane: swimlane, ranking: 1 }
-        end
-      end
-    end
-
-    swimlane = nil
-    # move through all rankings, going up the stack, searching unique
-    matches.any? && matches.sort_by{ |_,v| v[:ranking] }.each do |match|
-      next if matches.flatten.count(match.last[:ranking]) != 1
-      swimlane = match.last[:swimlane]
-    end
-
-    swimlane || board.swimlanes.inbox || board.swimlanes.first
+    update_attributes(column: board.columns.inbox, priority_position: :last)
   end
 end
