@@ -20,7 +20,7 @@ class Story < ActiveRecord::Base
   end
 
   def swimlane
-    Swimlane.find(swimlane_id)
+    Swimlane.find_by(id: swimlane_id) || Swimlane.inbox
   end
 
   def remote_id
