@@ -29,7 +29,7 @@ end
 
 group :test do
   gem 'factory_girl_rails'
-  gem 'rspec-given', github: 'JeanMertz/rspec-given', ref: '11899'
+  gem 'rspec-given'
   gem 'faker'
   gem 'webmock'
   gem 'vcr'
