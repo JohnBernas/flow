@@ -5,6 +5,8 @@ FactoryGirl.define do
 
   factory :column do
     title { Faker::Name.title }
+    limit 3
+    criteria tags: 'customer1'
     board
   end
 

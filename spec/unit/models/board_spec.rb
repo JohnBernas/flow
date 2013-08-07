@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 describe Board do
-  Given!(:board) { create(:board, data: { zendesk_account: 'kabisa.zendesk.com' }) }
-  Given!(:column) { create(:column, board: board, data: { default: true }) }
+  Given!(:board)    { create(:board, data: { host: 'kabisa.zendesk.com' }) }
+  Given!(:column)   { create(:column, board: board) }
+  Given!(:swimlane) { create(:swimlane, board: board) }
 
   context '#synchronize' do
     context 'removes solved/closed Zendesk tickets' do
       Given!(:orphaned_story) { create(:story, column: column) }
-      When { VCR.use_cassette(:remote_tickets) { board.synchronize } }
-      Then { expect(board.stories.where("remote -> 'status' = 'open'")).not_to be_empty }
-      And { expect(board.stories.where("remote -> 'status' = 'closed'")).to be_empty }
-      And { expect(board.stories.where(id: orphaned_story.id)).to be_empty }
+      When  { VCR.use_cassette(:remote_tickets) { board.synchronize } }
+      Then  { expect(board.stories.where("remote -> 'status' = 'open'")).not_to be_empty }
+      And   { expect(board.stories.where("remote -> 'status' = 'closed'")).to be_empty }
+      And   { expect(board.stories.where(id: orphaned_story.id)).to be_empty }
     end
   end
 

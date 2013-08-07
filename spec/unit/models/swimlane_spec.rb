@@ -1,20 +1,39 @@
 require 'spec_helper'
 
 describe Swimlane do
-  Given(:board) { create(:board) }
-  Given!(:swimlane) { create(:swimlane, board: board, data: { 'labels' => 'swim1,client1' }) }
+  Given(:board) { create(:board, data: { host: ENV['ZENDESK_HOST'] }) }
+  Given!(:inbox) { create(:swimlane, board: board, default: true) }
+  Given!(:swimlane) { create(:swimlane, board: board, criteria: { 'tags' => 'swim1,client1' }) }
 
   context '.inbox' do
-    Given!(:inbox) { create(:swimlane, board: board, data: { 'default' => 'true' }) }
     Then { expect(board.swimlanes.inbox).to eq inbox }
   end
 
   context '#stories' do
     Given(:column) { create(:column, board: board) }
-    Given(:story1) { create(:story, column: column, remote: { 'tags' => 'swim1' }) }
-    Given { create(:story, column: column, remote: { 'tags' => 'client3' }) }
-    Given { create(:story, column: column) }
+    Given(:ticket) do
+      story = double()
+      story.stub(:url).and_return("http://#{ENV['ZENDESK_HOST']}")
+      story.stub(:id).and_return(rand)
 
-    Then { expect(swimlane.stories).to eq [story1] }
+      story.stub(:is_a?).with(ZendeskAPI::Ticket).and_return(true)
+      story.stub(:attributes).and_return('tags' => 'swim1')
+      Zendesk.new(story)
+    end
+
+    Given do
+      story = double()
+      story.stub(:url).and_return("http://#{ENV['ZENDESK_HOST']}")
+      story.stub(:id).and_return(rand)
+
+      story.stub(:is_a?).with(ZendeskAPI::Ticket).and_return(true)
+      story.stub(:attributes).and_return('tags' => 'client3')
+      Zendesk.new(story)
+
+      story.stub(:attributes).and_return({})
+      Zendesk.new(story)
+    end
+
+    Then { expect(swimlane.stories).to eq [ticket.story] }
   end
 end

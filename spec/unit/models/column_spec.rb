@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe Column do
-  Given(:data)  { { 'labels' => 'c.customer1', 'limit' => 3 } }
   Given(:board) { create(:board) }
+  Given!(:swimlane) { create(:swimlane, board: board) }
 
   context '.inbox' do
-    Given!(:inbox) { create(:column, board: board, data: { 'default' => 'true' }) }
+    Given!(:inbox) { create(:column, board: board, default: true) }
     Then { expect(board.columns.inbox).to eq inbox }
   end
 
   context '#overflowing?' do
-    Given!(:column) { create(:column, board: board, data: data) }
+    Given!(:column) { create(:column, board: board) }
 
     context 'for <' do
       Given { create_list(:story, 2, column: column) }
@@ -29,7 +29,7 @@ describe Column do
   end
 
   context '#at_capacity?' do
-    Given!(:column) { create(:column, board: board, data: data) }
+    Given!(:column) { create(:column, board: board) }
 
     context 'for <' do
       Given { create_list(:story, 2, column: column) }
@@ -48,8 +48,8 @@ describe Column do
   end
 
   context '#move_stories_to_inbox_column' do
-    Given!(:column) { create(:column, board: board, data: data) }
-    Given!(:inbox)  { create(:column, board: board, data: { 'default' => 'true' }) }
+    Given!(:column) { create(:column, board: board) }
+    Given!(:inbox)  { create(:column, board: board, default: true) }
     Given!(:story)  { create(:story, column: column) }
     When { column.move_stories_to_inbox_column }
     Then { expect(column.reload.stories).to be_empty }

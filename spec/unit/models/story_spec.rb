@@ -1,13 +1,24 @@
 require 'spec_helper'
 
 describe Story do
-  Given(:board) { create(:board) }
-  Given(:column) { create(:column, board: board) }
-  Given(:story) { create(:story, column: column) }
+  Given(:board) { create(:board, data: { host: ENV['ZENDESK_HOST'] }) }
+  Given!(:column) { create(:column, board: board, criteria: { tags: 'col1' }) }
+  Given!(:swimlane) { create(:swimlane, board: board) }
+
+  Given(:ticket) { double() }
+
+  Given do
+    ticket.stub(:url).and_return("http://#{ENV['ZENDESK_HOST']}")
+    ticket.stub(:id).and_return(rand)
+    ticket.stub(:is_a?).with(ZendeskAPI::Ticket).and_return(true)
+    ticket.stub(:attributes).and_return('tags' => 'col1')
+  end
+
+  Given(:story) { Zendesk.new(ticket).story }
 
   context '#as_json' do
     When(:json) { JSON.parse(story.to_json) }
-    Then { expect(json.keys).to eq %w[id column_id remote pid sid labels] }
+    Then { expect(json.keys).to eq %w[id column_id swimlane_id remote remote_id] }
   end
 
   context '#board' do
@@ -26,43 +37,47 @@ describe Story do
     end
   end
 
-  context '#pid' do
+  context '#remote_id' do
     Given { story.stub_chain(:remote, :[]).with('id').and_return('123456') }
-    Then  { expect(story.pid).to eq '123456' }
+    Then  { expect(story.remote_id).to eq '123456' }
   end
 
-  context '#sid' do
-    Given(:swimlane) { create(:swimlane) }
+  context '#swimlane_id' do
     Given { story.stub(:swimlane).and_return(swimlane) }
-    Then  { expect(story.sid).to eq swimlane.id }
+    Then  { expect(story.swimlane_id).to eq swimlane.id }
   end
 
   context '#swimlane' do
-    Given(:data) { { 'labels' => 'client1,client2' } }
-    Given(:label) { double('Label') }
-    Given { Label.stub(:new).with(story).and_return(label) }
+    context '' do
+      Given(:swimlane) { create(:swimlane, board: board, criteria: { 'tags' => 'client1,client2' }) }
 
-    context 'with matching labels' do
-      Given!(:swimlane) { create(:swimlane, board: board, data: data) }
-      Given { label.stub(:swimlaneizers).and_return(%w[client1]) }
-      Then { expect(story.swimlane).to eq swimlane }
-    end
+      context 'with matching tags' do
+        Given(:ticket) do
+          story = double()
+          story.stub(:url).and_return("http://#{ENV['ZENDESK_HOST']}")
+          story.stub(:id).and_return(rand)
 
-    context 'without matching labels' do
-      Given!(:inbox) { create(:swimlane, board: board, data: { default: true }) }
-      Given { label.stub(:swimlaneizers).and_return(%w[]) }
-      Then { expect(story.swimlane).to eq inbox }
+          story.stub(:is_a?).with(ZendeskAPI::Ticket).and_return(true)
+          story.stub(:attributes).and_return('tags' => 'client1')
+          Zendesk.new(story)
+        end
+
+        Then { expect(ticket.story.swimlane).to eq swimlane }
+      end
+
+      context 'without matching tags' do
+        Then { expect(story.swimlane).to eq swimlane }
+      end
     end
 
     context 'without matching labels and no default swimlane' do
       Given!(:swimlane) { create(:swimlane, board: board) }
-      Given { label.stub(:swimlaneizers).and_return(%w[]) }
       Then { expect(story.swimlane).to eq swimlane }
     end
   end
 
   context '#assign_to_inbox_column' do
-    Given!(:inbox) { create(:column, board: board, data: { default: true }) }
+    Given!(:inbox) { create(:column, board: board, default: true) }
     When { story.assign_to_inbox_column }
     Then { expect(story.column).to eq inbox }
   end
