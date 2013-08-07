@@ -69,7 +69,7 @@ private
     matches.any? && matches.sort_by{ |_,v| [v[:ranking],v[:column].default,v[:column].display] }.reverse.each do |match|
       column = match.last[:column]
     end
-    column
+    column || @board.columns.inbox
   end
 
   def matched_swimlane(ticket)
