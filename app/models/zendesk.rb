@@ -17,7 +17,7 @@ class Zendesk
       ticket = Zendesk.client.tickets.find(id: ticket)
     end
 
-    @board = Board.where("data -> 'host' = ?::text", URI(ticket.url).host).first
+    @board = Board.find_by("data -> 'host' = ?::text", URI(ticket.url).host)
     @story = @board.stories.where("remote -> 'id' = ?::text", ticket.id)
       .first_or_create(
         column: matched_column(ticket),
