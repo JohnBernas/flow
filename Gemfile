@@ -15,6 +15,7 @@ gem 'bourbon'
 gem 'bootstrap-sass'
 gem 'jquery-ui-rails'
 gem 'zendesk_api'
+gem 'devise'
 
 gem 'sidekiq'
 gem 'slim'
