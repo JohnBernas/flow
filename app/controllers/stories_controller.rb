@@ -1,5 +1,5 @@
 module StoriesController
-  class Index < ApplicationController
+  class Index < ApplicationController::Action
 
     def call
       board = Board.find(params[:board_id])

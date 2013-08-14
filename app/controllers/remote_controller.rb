@@ -1,5 +1,5 @@
 module RemoteController
-  class Activity < ApplicationController
+  class Activity < ApplicationController::Action
     skip_before_filter :verify_authenticity_token
 
     def call
