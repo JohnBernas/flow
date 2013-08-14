@@ -16,6 +16,7 @@ gem 'bootstrap-sass'
 gem 'jquery-ui-rails'
 gem 'zendesk_api'
 gem 'devise'
+gem 'simple_form'
 
 gem 'sidekiq'
 gem 'slim'
